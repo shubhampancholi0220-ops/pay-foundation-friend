@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { z } from "zod";
 
 const paymentSchema = z.object({
@@ -64,6 +64,8 @@ function getInitials(name: string) {
   return (first + second).toUpperCase();
 }
 
+const SHEET_MS = 380;
+
 function PaymentSheet({
   name,
   upiId,
@@ -77,15 +79,61 @@ function PaymentSheet({
   onClose: () => void;
   onPay: () => void;
 }) {
+  const [entered, setEntered] = useState(false);
+
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => setEntered(true));
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      cancelAnimationFrame(raf);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, []);
+
+  const close = useCallback(() => {
+    setEntered(false);
+    window.setTimeout(onClose, SHEET_MS);
+  }, [onClose]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [close]);
+
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60">
-      <div className="relative flex w-full max-w-[430px] flex-col bg-[#0d0d0d]">
+    <div className="fixed inset-0 z-50">
+      <div
+        aria-hidden="true"
+        onClick={close}
+        className={`absolute inset-0 bg-black/60 transition-opacity duration-300 ease-out ${
+          entered ? "opacity-100" : "opacity-0"
+        }`}
+      />
+      <div className="pointer-events-none absolute inset-0 flex items-end justify-center">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Payment method"
+          onClick={(e) => e.stopPropagation()}
+          style={{ transitionDuration: `${SHEET_MS}ms` }}
+          className={`pointer-events-auto relative flex w-full max-w-[430px] flex-col bg-[#0d0d0d] transition-transform ease-[cubic-bezier(0.32,0.72,0,1)] ${
+            entered ? "translate-y-0" : "translate-y-full"
+          }`}
+        >
         {/* Close button */}
-        <div className="flex justify-center pb-6">
+        <div
+          className={`flex justify-center pb-6 transition-opacity duration-300 ${
+            entered ? "opacity-100 delay-150" : "opacity-0"
+          }`}
+        >
           <button
             type="button"
             aria-label="Close"
-            onClick={onClose}
+            onClick={close}
             className="flex h-12 w-12 items-center justify-center rounded-full bg-[#2a2a2a] text-white transition-colors hover:bg-[#3a3a3a]"
           >
             <svg
@@ -226,6 +274,7 @@ function PaymentSheet({
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
