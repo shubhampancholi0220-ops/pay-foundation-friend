@@ -120,20 +120,24 @@ function PaymentSheet({
           aria-label="Payment method"
           onClick={(e) => e.stopPropagation()}
           style={{ transitionDuration: `${SHEET_MS}ms` }}
-          className={`pointer-events-auto relative flex w-full max-w-[430px] flex-col bg-[#0d0d0d] transition-transform ease-[cubic-bezier(0.32,0.72,0,1)] ${
+          className={`pointer-events-auto relative flex w-full max-w-[430px] flex-col bg-transparent transition-transform ease-[cubic-bezier(0.32,0.72,0,1)] ${
             entered ? "translate-y-0" : "translate-y-full"
           }`}
         >
         {/* Close button */}
         <div
+          onClick={close}
           className={`flex justify-center pb-6 transition-opacity duration-300 ${
-            entered ? "opacity-100 delay-150" : "opacity-0"
+            entered ? "opacity-100 delay-150" : "opacity-0 pointer-events-none"
           }`}
         >
           <button
             type="button"
             aria-label="Close"
-            onClick={close}
+            onClick={(e) => {
+              e.stopPropagation();
+              close();
+            }}
             className="flex h-12 w-12 items-center justify-center rounded-full bg-[#2a2a2a] text-white transition-colors hover:bg-[#3a3a3a]"
           >
             <svg
