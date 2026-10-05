@@ -126,14 +126,18 @@ function PaymentSheet({
         >
         {/* Close button */}
         <div
+          onClick={close}
           className={`flex justify-center pb-6 transition-opacity duration-300 ${
-            entered ? "opacity-100 delay-150" : "opacity-0"
+            entered ? "opacity-100 delay-150" : "opacity-0 pointer-events-none"
           }`}
         >
           <button
             type="button"
             aria-label="Close"
-            onClick={close}
+            onClick={(e) => {
+              e.stopPropagation();
+              close();
+            }}
             className="flex h-12 w-12 items-center justify-center rounded-full bg-[#2a2a2a] text-white transition-colors hover:bg-[#3a3a3a]"
           >
             <svg
