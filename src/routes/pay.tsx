@@ -407,6 +407,25 @@ function PaymentPage() {
           </div>
         </form>
       </div>
+      {showSheet && (
+        <PaymentSheet
+          name={receiverName}
+          upiId={upiId}
+          amount={formattedAmount}
+          onClose={() => setShowSheet(false)}
+          onPay={() =>
+            navigate({
+              to: "/pin",
+              search: {
+                name: receiverName,
+                upi: upiId,
+                amount,
+                message: message.trim() || "",
+              },
+            })
+          }
+        />
+      )}
     </div>
   );
 }
