@@ -64,6 +64,172 @@ function getInitials(name: string) {
   return (first + second).toUpperCase();
 }
 
+function PaymentSheet({
+  name,
+  upiId,
+  amount,
+  onClose,
+  onPay,
+}: {
+  name: string;
+  upiId: string;
+  amount: string;
+  onClose: () => void;
+  onPay: () => void;
+}) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60">
+      <div className="relative flex w-full max-w-[430px] flex-col bg-[#0d0d0d]">
+        {/* Close button */}
+        <div className="flex justify-center pb-6">
+          <button
+            type="button"
+            aria-label="Close"
+            onClick={onClose}
+            className="flex h-12 w-12 items-center justify-center rounded-full bg-[#2a2a2a] text-white transition-colors hover:bg-[#3a3a3a]"
+          >
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Sheet */}
+        <div className="rounded-t-3xl bg-[#111111]">
+          {/* Total payable */}
+          <div className="flex items-center justify-between border-b border-zinc-800 px-5 py-6">
+            <p className="text-lg font-bold text-white">Total Payable</p>
+            <p className="text-2xl font-bold text-white">₹{amount}</p>
+          </div>
+
+          {/* Recommended */}
+          <div className="border-b border-zinc-800 px-5 py-5">
+            <p className="text-sm text-zinc-400">Recommended</p>
+            <div className="mt-4 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white">
+                  <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="9" stroke="#e2136e" strokeWidth="2" />
+                    <path
+                      d="M12 6.5c2.2 0 4 1 4.6 2.8M12 17.5c-2.2 0-4-1-4.6-2.8"
+                      stroke="#003b7a"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                    />
+                    <circle cx="12" cy="12" r="2" fill="#e2136e" />
+                  </svg>
+                </span>
+                <div>
+                  <p className="text-base font-semibold text-white">Kotak Mahindra Bank</p>
+                  <div className="mt-0.5 flex items-center gap-2">
+                    <span className="text-sm tracking-widest text-zinc-400">•••• 8950</span>
+                    <span className="rounded-sm bg-[#1c1c1c] px-1.5 py-0.5 text-[10px] font-bold italic text-[#f7941d]">
+                      UPI
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-base text-zinc-300">₹{amount}</span>
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-green-600">
+                  <svg
+                    className="h-4 w-4 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={3}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Add payment method */}
+          <div className="px-5 py-5">
+            <p className="text-sm text-zinc-400">Add Payment Method</p>
+            <button
+              type="button"
+              className="mt-4 flex w-full items-center justify-between text-left"
+            >
+              <span className="flex items-center gap-4">
+                <svg
+                  className="h-6 w-6 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={1.6}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3 10h18M4 6h16M5 6v12h14V6M9 18v-5h6v5"
+                  />
+                </svg>
+                <span className="text-base text-white">Add Bank Account</span>
+              </span>
+              <svg
+                className="h-5 w-5 text-zinc-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              className="mt-5 flex w-full items-center justify-between text-left"
+            >
+              <span className="flex items-center gap-4">
+                <svg
+                  className="h-6 w-6 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={1.6}
+                >
+                  <rect x="5" y="3" width="14" height="18" rx="2" />
+                  <path strokeLinecap="round" d="M9 8h6M12 12v5M9.5 13.5l5-3" />
+                </svg>
+                <span className="text-base text-white">Add credit line on UPI</span>
+              </span>
+              <svg
+                className="h-5 w-5 text-zinc-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Pay button */}
+          <div className="px-4 pb-6 pt-2">
+            <button
+              type="button"
+              onClick={onPay}
+              className="w-full rounded-lg bg-[#7c5cfc] py-4 text-base font-bold text-white transition-colors hover:bg-[#6b4be0] active:bg-[#5f42d0]"
+            >
+              Pay ₹{amount}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function PaymentPage() {
   const navigate = useNavigate();
   const search = Route.useSearch();
@@ -72,6 +238,7 @@ function PaymentPage() {
   const [amount, setAmount] = useState("");
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
+  const [showSheet, setShowSheet] = useState(false);
 
   const handlePay = (e: React.FormEvent) => {
     e.preventDefault();
@@ -86,16 +253,16 @@ function PaymentPage() {
       return;
     }
     setErrors({});
-    navigate({
-      to: "/pin",
-      search: {
-        name: result.data.receiverName,
-        upi: result.data.upiId,
-        amount: result.data.amount,
-        message: message.trim() || "",
-      },
-    });
+    setShowSheet(true);
   };
+
+  const formattedAmount = (() => {
+    const n = Number(amount);
+    if (!Number.isFinite(n) || amount === "") return amount;
+    return n % 1 === 0
+      ? n.toLocaleString("en-IN")
+      : n.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  })();
 
   const hasError = Boolean(errors.receiverName || errors.upiId || errors.amount);
 
