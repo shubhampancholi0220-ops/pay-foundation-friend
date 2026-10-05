@@ -105,22 +105,25 @@ function PaymentSheet({
   }, [close]);
 
   return (
-    <div
-      onClick={close}
-      className={`fixed inset-0 z-50 flex items-end justify-center bg-black/60 transition-opacity duration-300 ease-out ${
-        entered ? "opacity-100" : "opacity-0"
-      }`}
-    >
+    <div className="fixed inset-0 z-50">
       <div
-        role="dialog"
-        aria-modal="true"
-        aria-label="Payment method"
-        onClick={(e) => e.stopPropagation()}
-        style={{ transitionDuration: `${SHEET_MS}ms` }}
-        className={`relative flex w-full max-w-[430px] flex-col bg-[#0d0d0d] transition-transform ease-[cubic-bezier(0.32,0.72,0,1)] ${
-          entered ? "translate-y-0" : "translate-y-full"
+        aria-hidden="true"
+        onClick={close}
+        className={`absolute inset-0 bg-black/60 transition-opacity duration-300 ease-out ${
+          entered ? "opacity-100" : "opacity-0"
         }`}
-      >
+      />
+      <div className="pointer-events-none absolute inset-0 flex items-end justify-center">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Payment method"
+          onClick={(e) => e.stopPropagation()}
+          style={{ transitionDuration: `${SHEET_MS}ms` }}
+          className={`pointer-events-auto relative flex w-full max-w-[430px] flex-col bg-[#0d0d0d] transition-transform ease-[cubic-bezier(0.32,0.72,0,1)] ${
+            entered ? "translate-y-0" : "translate-y-full"
+          }`}
+        >
         {/* Close button */}
         <div
           className={`flex justify-center pb-6 transition-opacity duration-300 ${
@@ -271,6 +274,7 @@ function PaymentSheet({
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
