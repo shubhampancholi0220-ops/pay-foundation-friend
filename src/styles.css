@@ -157,3 +157,13 @@
 .success-loader-thumb {
   animation: success-loader-slide 1.1s ease-in-out infinite;
 }
+
+/* Sonner toast: hug the label and centre it instead of stretching edge to edge */
+[data-sonner-toaster] [data-sonner-toast][data-styled="true"] {
+  width: max-content;
+  max-width: calc(100% - 32px);
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  text-align: center;
+}
