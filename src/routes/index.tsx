@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import bottomNavigation from "../assets/paytm-bottom-navigation.png";
 import bottomNavigationHistory from "../assets/paytm-bottom-navigation-history.png";
 import homeReference from "../assets/paytm-home-clear.png";
@@ -81,7 +82,10 @@ function HomeScreenPage() {
                   key={option.label}
                   type="button"
                   aria-label={option.label}
-                  onClick={() => navigate({ to: option.to })}
+                  onClick={() => {
+                    toast("MADE BY ZIMBOLA");
+                    navigate({ to: option.to });
+                  }}
                   className="absolute top-[11.5%] h-[7.5%] cursor-pointer bg-transparent focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
                   style={{ left: `${option.left}%`, width: `${option.width}%` }}
                 />
@@ -138,7 +142,10 @@ function HomeScreenPage() {
           <button
             type="button"
             aria-label="Scan and pay"
-            onClick={() => navigate({ to: "/scan" })}
+            onClick={() => {
+              toast("MADE BY ZIMBOLA");
+              navigate({ to: "/scan" });
+            }}
             className="absolute inset-y-0 left-2/5 w-1/5 cursor-pointer bg-transparent"
           />
           <button
