@@ -124,7 +124,21 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       {/* Global toast host — required for any toast(...) call in the app. */}
-      <Toaster position="top-center" />
+      <Toaster
+        position="bottom-center"
+        offset={{ bottom: "92px" }}
+        toastOptions={{
+          style: {
+            background: "rgba(255,255,255,0.18)",
+            color: "#ffffff",
+            border: "1px solid rgba(255,255,255,0.22)",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
+            fontWeight: 600,
+            letterSpacing: "0.06em",
+          },
+        }}
+      />
     </QueryClientProvider>
   );
 }
