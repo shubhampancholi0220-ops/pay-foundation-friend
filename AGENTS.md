@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Load Lottie playback dynamically inside a client effect and destroy it on unmount so browser-only animation code stays outside SSR execution.
