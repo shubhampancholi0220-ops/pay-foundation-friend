@@ -18,6 +18,7 @@ import { Route as PinRouteImport } from './routes/pin'
 import { Route as ScanRouteImport } from './routes/scan'
 import { Route as SuccessRouteImport } from './routes/success'
 import { Route as SuccessDetailsRouteImport } from './routes/success-details'
+import { Route as UnlockRouteImport } from './routes/unlock'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -64,6 +65,11 @@ const SuccessDetailsRoute = SuccessDetailsRouteImport.update({
   path: '/success-details',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UnlockRoute = UnlockRouteImport.update({
+  id: '/unlock',
+  path: '/unlock',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/scan': typeof ScanRoute
   '/success': typeof SuccessRoute
   '/success-details': typeof SuccessDetailsRoute
+  '/unlock': typeof UnlockRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/scan': typeof ScanRoute
   '/success': typeof SuccessRoute
   '/success-details': typeof SuccessDetailsRoute
+  '/unlock': typeof UnlockRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -98,6 +106,7 @@ export interface FileRoutesById {
   '/scan': typeof ScanRoute
   '/success': typeof SuccessRoute
   '/success-details': typeof SuccessDetailsRoute
+  '/unlock': typeof UnlockRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -111,6 +120,7 @@ export interface FileRouteTypes {
     | '/scan'
     | '/success'
     | '/success-details'
+    | '/unlock'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,6 +132,7 @@ export interface FileRouteTypes {
     | '/scan'
     | '/success'
     | '/success-details'
+    | '/unlock'
   id:
     | '__root__'
     | '/'
@@ -133,6 +144,7 @@ export interface FileRouteTypes {
     | '/scan'
     | '/success'
     | '/success-details'
+    | '/unlock'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -145,6 +157,7 @@ export interface RootRouteChildren {
   ScanRoute: typeof ScanRoute
   SuccessRoute: typeof SuccessRoute
   SuccessDetailsRoute: typeof SuccessDetailsRoute
+  UnlockRoute: typeof UnlockRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -212,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SuccessDetailsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/unlock': {
+      id: '/unlock'
+      path: '/unlock'
+      fullPath: '/unlock'
+      preLoaderRoute: typeof UnlockRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -225,6 +245,7 @@ const rootRouteChildren: RootRouteChildren = {
   ScanRoute: ScanRoute,
   SuccessRoute: SuccessRoute,
   SuccessDetailsRoute: SuccessDetailsRoute,
+  UnlockRoute: UnlockRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
