@@ -27,7 +27,6 @@ export const historyMonths: HistoryMonth[] = [
       { id: "t1", kind: "paid", label: "Paid to", name: "GREEN BEAN CAFE LLP", upi: "greenbeancafe@okhdfcbank", amount: 835, date: "1 day ago" },
       { id: "t2", kind: "paid", label: "Paid to", name: "URBAN SPICE KITCHEN", upi: "urbanspice@ybl", amount: 160, date: "1 day ago" },
       { id: "t3", kind: "paid", label: "Paid to", name: "Mehta and brothers", upi: "mehtabrothers@okaxis", amount: 200, date: "1 day ago" },
-      { id: "t4", kind: "received", label: "Received from", name: "ARJUN PILLAI", upi: "arjunpillai@okicici", amount: 1120, date: "01 Oct" },
       { id: "t5", kind: "paid", label: "Paid to", name: "RAKESH VERMA", upi: "rakeshverma@ybl", amount: 50, date: "01 Oct" },
       { id: "t6", kind: "paid", label: "Paid to", name: "Krishna general store", upi: "krishnastore@paytm", amount: 20, date: "01 Oct" },
     ],
@@ -36,7 +35,6 @@ export const historyMonths: HistoryMonth[] = [
     month: "September 2026",
     total: "₹26,482.34",
     transactions: [
-      { id: "t7", kind: "bill", label: "Electricity bill paid", name: "SMT  KAVITA RAMESH JOSHI", upi: "powerbill@paytm", amount: 5279, date: "29 Sep" },
       { id: "t8", kind: "paid", label: "Paid to", name: "CITY BAZAAR RETAIL LTD", upi: "citybazaar@icici", amount: 1450, date: "27 Sep" },
       { id: "t9", kind: "paid", label: "Paid to", name: "QUICKBITE FOODS", upi: "quickbite@icici", amount: 389, date: "25 Sep" },
     ],
