@@ -68,6 +68,21 @@ function SuccessPage() {
   const [activeSlide, setActiveSlide] = useState(0);
   const slideCount = 3;
 
+  // Intro sequence: dark "Connecting Securely" loader -> green success
+  // overlay -> overlay slides up to reveal the details page.
+  const [phase, setPhase] = useState<"loading" | "success" | "revealed">(
+    "loading",
+  );
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setPhase("success"), 1600);
+    const t2 = setTimeout(() => setPhase("revealed"), 3400);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, []);
+
   // Record this payment so it shows up in the History tab.
   useEffect(() => {
     addStoredPayment({ name, upi, amount, message });
@@ -91,9 +106,25 @@ function SuccessPage() {
         });
   })();
 
+  if (phase === "loading") {
+    return (
+      <div className="flex min-h-screen justify-center bg-[#161616]">
+        <div className="flex w-full max-w-[430px] flex-col items-center justify-center bg-[#161616]">
+          {/* Sliding pill loader */}
+          <div className="relative h-9 w-24 overflow-hidden rounded-full bg-[#6D28D9]">
+            <div className="success-loader-thumb absolute top-0 h-full w-1/2 rounded-full bg-[#A78BFA]" />
+          </div>
+          <p className="mt-6 text-lg font-bold text-white">
+            Connecting Securely
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex min-h-screen justify-center bg-[#262626]">
-      <div className="flex w-full max-w-[430px] flex-col bg-[#262626]">
+      <div className="relative flex w-full max-w-[430px] flex-col overflow-hidden bg-[#262626]">
         {/* Green success hero */}
         <div className="bg-payment-success px-4 pb-28 pt-16 text-center">
           <SuccessAnimation />
@@ -273,6 +304,18 @@ function SuccessPage() {
           >
             Done
           </button>
+        </div>
+
+        {/* Full-screen green success overlay; slides up to reveal details */}
+        <div
+          className={`absolute inset-0 z-20 flex flex-col items-center justify-center bg-payment-success transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+            phase === "revealed" ? "-translate-y-full" : "translate-y-0"
+          }`}
+        >
+          <SuccessAnimation />
+          <h1 className="mt-6 text-[22px] font-bold text-white">
+            Payment Successful
+          </h1>
         </div>
       </div>
     </div>
