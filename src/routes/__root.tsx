@@ -127,7 +127,7 @@ function RootComponent() {
       <Toaster
         position="bottom-center"
         offset={{ bottom: "92px" }}
-        mobileOffset={{ bottom: "92px" }}
+        mobileOffset={{ bottom: "92px", left: "0px", right: "0px" }}
         toastOptions={{
           style: {
             background: "rgba(255,255,255,0.78)",
