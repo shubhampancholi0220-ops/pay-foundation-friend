@@ -130,9 +130,9 @@ function RootComponent() {
         mobileOffset={{ bottom: "92px" }}
         toastOptions={{
           style: {
-            background: "rgba(255,255,255,0.3)",
-            color: "#ffffff",
-            border: "1px solid rgba(255,255,255,0.35)",
+            background: "rgba(255,255,255,0.78)",
+            color: "#141414",
+            border: "1px solid rgba(255,255,255,0.45)",
             backdropFilter: "blur(10px)",
             WebkitBackdropFilter: "blur(10px)",
             fontWeight: 600,
