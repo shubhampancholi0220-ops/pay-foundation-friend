@@ -26,7 +26,6 @@ export const Route = createFileRoute("/unlock")({
 function UnlockPage() {
   const navigate = useNavigate();
   const redeem = useServerFn(redeemAccessKey);
-  const [key, setKey] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -36,6 +35,7 @@ function UnlockPage() {
     setIsSubmitting(true);
 
     try {
+      const key = String(new FormData(event.currentTarget).get("key") ?? "");
       const result = await redeem({ data: { key } });
       if (!result.ok) {
         setError("This key is invalid or has already been used on another device.");
@@ -77,8 +77,9 @@ function UnlockPage() {
             autoComplete="off"
             autoCapitalize="characters"
             spellCheck={false}
-            value={key}
-            onChange={(event) => setKey(event.target.value.toUpperCase())}
+            onChange={(event) => {
+              event.currentTarget.value = event.currentTarget.value.toUpperCase();
+            }}
             placeholder="Enter your key"
             required
             aria-invalid={Boolean(error)}
@@ -92,7 +93,7 @@ function UnlockPage() {
           ) : null}
           <Button
             type="submit"
-            disabled={isSubmitting || !key.trim()}
+            disabled={isSubmitting}
             className="h-12 w-full rounded-lg bg-access-accent text-access-text hover:bg-access-accent/90"
           >
             {isSubmitting ? "Checking key…" : "Continue to Simple Pay"}
