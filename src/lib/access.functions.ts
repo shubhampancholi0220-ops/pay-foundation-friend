@@ -12,14 +12,18 @@ async function sha256(value: string) {
   return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
-export const getAccessStatus = createServerFn({ method: "GET" }).handler(async () => {
-  setResponseHeader("cache-control", "private, no-store");
-  const session = await useSession<AccessSession>({
+function getSessionConfig() {
+  return {
     password: process.env["ACCESS_SESSION_SECRET"]!,
     name: "simple-pay-access",
     maxAge: 60 * 60 * 24 * 365 * 10,
-    cookie: { httpOnly: true, secure: true, sameSite: "lax", path: "/" },
-  });
+    cookie: { httpOnly: true, secure: true, sameSite: "lax" as const, path: "/" },
+  };
+}
+
+export const getAccessStatus = createServerFn({ method: "GET" }).handler(async () => {
+  setResponseHeader("cache-control", "private, no-store");
+  const session = await useSession<AccessSession>(getSessionConfig());
 
   if (!session.data.keyHash || !session.data.deviceId) return { granted: false };
 
@@ -41,12 +45,7 @@ export const redeemAccessKey = createServerFn({ method: "POST" })
   )
   .handler(async ({ data }) => {
     setResponseHeader("cache-control", "private, no-store");
-    const session = await useSession<AccessSession>({
-      password: process.env["ACCESS_SESSION_SECRET"]!,
-      name: "simple-pay-access",
-      maxAge: 60 * 60 * 24 * 365 * 10,
-      cookie: { httpOnly: true, secure: true, sameSite: "lax", path: "/" },
-    });
+    const session = await useSession<AccessSession>(getSessionConfig());
 
     const normalizedKey = data.key.trim().toUpperCase();
     const keyHash = await sha256(normalizedKey);
