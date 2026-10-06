@@ -26,6 +26,7 @@ export const Route = createFileRoute("/unlock")({
 function UnlockPage() {
   const navigate = useNavigate();
   const redeem = useServerFn(redeemAccessKey);
+  const [key, setKey] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -35,7 +36,6 @@ function UnlockPage() {
     setIsSubmitting(true);
 
     try {
-      const key = String(new FormData(event.currentTarget).get("key") ?? "");
       const result = await redeem({ data: { key } });
       if (!result.ok) {
         setError("This key is invalid or has already been used on another device.");
@@ -77,9 +77,8 @@ function UnlockPage() {
             autoComplete="off"
             autoCapitalize="characters"
             spellCheck={false}
-            onChange={(event) => {
-              event.currentTarget.value = event.currentTarget.value.toUpperCase();
-            }}
+            value={key}
+            onChange={(event) => setKey(event.target.value.toUpperCase())}
             placeholder="Enter your key"
             required
             aria-invalid={Boolean(error)}
