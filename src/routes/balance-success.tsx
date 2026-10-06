@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Check, ChevronRight, Pencil } from "lucide-react";
+import { Check, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import glowtripAd from "../assets/glowtrip-ad.png";
 import {
@@ -161,10 +161,6 @@ function BalanceSuccessPage() {
               <span className="text-[30px] font-bold tracking-tight text-white">
                 ₹{formatBalance(balance)}
               </span>
-              <Pencil
-                className="h-4 w-4 text-white/40 transition-colors group-hover:text-white/80"
-                strokeWidth={2}
-              />
             </button>
           )}
         </div>
