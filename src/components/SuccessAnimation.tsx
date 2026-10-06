@@ -42,10 +42,10 @@ export function SuccessAnimation() {
         }`}
       >
         <svg className="h-[74px] w-[74px]" viewBox="0 0 74 74" fill="none">
-          <circle cx="37" cy="37" r="37" fill="#2D7D4E" />
+          <circle cx="37" cy="37" r="37" fill="white" />
           <path
             d="M22 38.5L32.5 49L53 27"
-            stroke="white"
+            stroke="#2D7D4E"
             strokeWidth="6"
             strokeLinecap="round"
             strokeLinejoin="round"
