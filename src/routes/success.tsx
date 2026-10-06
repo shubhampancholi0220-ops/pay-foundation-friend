@@ -5,6 +5,7 @@ import promoBanner from "@/assets/success-promo.png";
 import promoBanner2 from "@/assets/promo-banner-2.png";
 import promoBanner3 from "@/assets/promo-banner-3.png";
 import { addStoredPayment } from "@/lib/paymentHistory";
+import { SuccessAnimation } from "@/components/SuccessAnimation";
 
 const successSearchSchema = z.object({
   name: z.string().max(100).catch(""),
@@ -94,18 +95,8 @@ function SuccessPage() {
     <div className="flex min-h-screen justify-center bg-[#262626]">
       <div className="flex w-full max-w-[430px] flex-col bg-[#262626]">
         {/* Green success hero */}
-        <div className="bg-[#2E7D46] px-4 pb-28 pt-16 text-center">
-          <div className="mx-auto flex h-[74px] w-[74px] items-center justify-center rounded-full bg-white shadow-md">
-            <svg
-              className="h-9 w-9 text-[#2E7D46]"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={3}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
+        <div className="bg-payment-success px-4 pb-28 pt-16 text-center">
+          <SuccessAnimation />
           <h1 className="mt-6 text-[22px] font-bold text-white">
             Payment Successful
           </h1>
