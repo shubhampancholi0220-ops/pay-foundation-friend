@@ -106,9 +106,25 @@ function SuccessPage() {
         });
   })();
 
+  if (phase === "loading") {
+    return (
+      <div className="flex min-h-screen justify-center bg-[#161616]">
+        <div className="flex w-full max-w-[430px] flex-col items-center justify-center bg-[#161616]">
+          {/* Sliding pill loader */}
+          <div className="relative h-9 w-24 overflow-hidden rounded-full bg-[#6D28D9]">
+            <div className="success-loader-thumb absolute top-0 h-full w-1/2 rounded-full bg-[#A78BFA]" />
+          </div>
+          <p className="mt-6 text-lg font-bold text-white">
+            Connecting Securely
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex min-h-screen justify-center bg-[#262626]">
-      <div className="flex w-full max-w-[430px] flex-col bg-[#262626]">
+      <div className="relative flex w-full max-w-[430px] flex-col overflow-hidden bg-[#262626]">
         {/* Green success hero */}
         <div className="bg-payment-success px-4 pb-28 pt-16 text-center">
           <SuccessAnimation />
