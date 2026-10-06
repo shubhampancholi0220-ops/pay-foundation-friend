@@ -28,6 +28,12 @@
   --radius-4xl: calc(var(--radius) + 16px);
   --color-background: var(--background);
   --color-payment-success: var(--payment-success);
+  --color-access-screen: var(--access-screen);
+  --color-access-surface: var(--access-surface);
+  --color-access-text: var(--access-text);
+  --color-access-muted: var(--access-muted);
+  --color-access-accent: var(--access-accent);
+  --color-access-border: var(--access-border);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -64,6 +70,12 @@
 
 :root {
   --payment-success: oklch(0.5233627334 0.1332929441 144.8322863);
+  --access-screen: oklch(0.145 0 0);
+  --access-surface: oklch(0.205 0 0);
+  --access-text: oklch(0.98 0 0);
+  --access-muted: oklch(0.72 0 0);
+  --access-accent: oklch(0.63 0.21 295);
+  --access-border: oklch(1 0 0 / 12%);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);

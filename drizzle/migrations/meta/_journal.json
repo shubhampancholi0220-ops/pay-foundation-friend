@@ -1,5 +1,20 @@
 {
   "version": "7",
   "dialect": "postgresql",
-  "entries": []
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1791279872183,
+      "tag": "0000_create_access_keys",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791280044404,
+      "tag": "0001_restrict_access_key_table",
+      "breakpoints": true
+    }
+  ]
 }

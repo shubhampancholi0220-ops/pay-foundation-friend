@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Load Lottie playback dynamically inside a client effect and destroy it on unmount so browser-only animation code stays outside SSR execution.
+- Gate app routes through the root router and verify encrypted access sessions against server-owned key claims so direct URLs cannot bypass the entry screen.
