@@ -14,7 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      access_keys: {
+        Row: {
+          claimed_at: string | null
+          claimed_device_hash: string | null
+          created_at: string
+          id: string
+          key_hash: string
+        }
+        Insert: {
+          claimed_at?: string | null
+          claimed_device_hash?: string | null
+          created_at?: string
+          id?: string
+          key_hash: string
+        }
+        Update: {
+          claimed_at?: string | null
+          claimed_device_hash?: string | null
+          created_at?: string
+          id?: string
+          key_hash?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
