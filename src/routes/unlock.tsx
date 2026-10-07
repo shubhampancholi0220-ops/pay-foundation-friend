@@ -1,5 +1,5 @@
 import { useServerFn } from "@tanstack/react-start";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { KeyRound, ShieldCheck } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
@@ -24,7 +24,6 @@ export const Route = createFileRoute("/unlock")({
 });
 
 function UnlockPage() {
-  const navigate = useNavigate();
   const redeem = useServerFn(redeemAccessKey);
   const [key, setKey] = useState("");
   const [error, setError] = useState("");
@@ -41,7 +40,7 @@ function UnlockPage() {
         setError("This key is invalid or has already been used on another device.");
         return;
       }
-      await navigate({ to: "/", replace: true });
+      window.location.replace("/");
     } catch {
       setError("We couldn't verify your key right now. Please try again.");
     } finally {
