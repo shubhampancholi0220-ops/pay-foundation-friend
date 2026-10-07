@@ -17,7 +17,7 @@ function getSessionConfig() {
     password: process.env["ACCESS_SESSION_SECRET"]!,
     name: "simple-pay-access",
     maxAge: 60 * 60 * 24 * 365 * 10,
-    cookie: { httpOnly: true, secure: true, sameSite: "lax" as const, path: "/" },
+    cookie: { httpOnly: true, secure: true, sameSite: "none" as const, path: "/" },
   };
 }
 
