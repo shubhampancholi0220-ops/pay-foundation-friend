@@ -19,6 +19,7 @@ import { Route as ScanRouteImport } from './routes/scan'
 import { Route as SuccessRouteImport } from './routes/success'
 import { Route as SuccessDetailsRouteImport } from './routes/success-details'
 import { Route as UnlockRouteImport } from './routes/unlock'
+import { Route as ZimadminRouteImport } from './routes/zimadmin'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -70,6 +71,11 @@ const UnlockRoute = UnlockRouteImport.update({
   path: '/unlock',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ZimadminRoute = ZimadminRouteImport.update({
+  id: '/zimadmin',
+  path: '/zimadmin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -82,6 +88,7 @@ export interface FileRoutesByFullPath {
   '/success': typeof SuccessRoute
   '/success-details': typeof SuccessDetailsRoute
   '/unlock': typeof UnlockRoute
+  '/zimadmin': typeof ZimadminRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -94,6 +101,7 @@ export interface FileRoutesByTo {
   '/success': typeof SuccessRoute
   '/success-details': typeof SuccessDetailsRoute
   '/unlock': typeof UnlockRoute
+  '/zimadmin': typeof ZimadminRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -107,6 +115,7 @@ export interface FileRoutesById {
   '/success': typeof SuccessRoute
   '/success-details': typeof SuccessDetailsRoute
   '/unlock': typeof UnlockRoute
+  '/zimadmin': typeof ZimadminRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
     | '/success'
     | '/success-details'
     | '/unlock'
+    | '/zimadmin'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -133,6 +143,7 @@ export interface FileRouteTypes {
     | '/success'
     | '/success-details'
     | '/unlock'
+    | '/zimadmin'
   id:
     | '__root__'
     | '/'
@@ -145,6 +156,7 @@ export interface FileRouteTypes {
     | '/success'
     | '/success-details'
     | '/unlock'
+    | '/zimadmin'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -158,6 +170,7 @@ export interface RootRouteChildren {
   SuccessRoute: typeof SuccessRoute
   SuccessDetailsRoute: typeof SuccessDetailsRoute
   UnlockRoute: typeof UnlockRoute
+  ZimadminRoute: typeof ZimadminRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -232,6 +245,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnlockRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/zimadmin': {
+      id: '/zimadmin'
+      path: '/zimadmin'
+      fullPath: '/zimadmin'
+      preLoaderRoute: typeof ZimadminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -246,6 +266,7 @@ const rootRouteChildren: RootRouteChildren = {
   SuccessRoute: SuccessRoute,
   SuccessDetailsRoute: SuccessDetailsRoute,
   UnlockRoute: UnlockRoute,
+  ZimadminRoute: ZimadminRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

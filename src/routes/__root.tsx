@@ -78,7 +78,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   beforeLoad: async ({ location }) => {
-    if (location.pathname === "/unlock") return;
+    if (location.pathname === "/unlock" || location.pathname === "/zimadmin") return;
 
     try {
       const access = await getAccessStatus();
