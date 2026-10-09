@@ -23,6 +23,20 @@ async function sha256(value: string) {
   return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
+async function matchesSecret(candidate: string, expected: string) {
+  const [candidateDigest, expectedDigest] = await Promise.all([
+    crypto.subtle.digest("SHA-256", new TextEncoder().encode(candidate)),
+    crypto.subtle.digest("SHA-256", new TextEncoder().encode(expected)),
+  ]);
+  const candidateBytes = new Uint8Array(candidateDigest);
+  const expectedBytes = new Uint8Array(expectedDigest);
+  let difference = 0;
+  for (let index = 0; index < candidateBytes.length; index += 1) {
+    difference |= (candidateBytes[index] ?? 0) ^ (expectedBytes[index] ?? 0);
+  }
+  return difference === 0;
+}
+
 export const getAdminStatus = createServerFn({ method: "GET" }).handler(async () => {
   setResponseHeader("cache-control", "private, no-store");
   const session = await useSession<AdminSession>(getAdminSessionConfig());
@@ -36,7 +50,7 @@ export const unlockAdmin = createServerFn({ method: "POST" })
 
     const expectedKey = process.env["ZIMADMIN_PASSWORD"];
     if (!expectedKey) throw new Error("Admin access is temporarily unavailable.");
-    if (data.key.trim() !== expectedKey) return { ok: false as const };
+    if (!(await matchesSecret(data.key.trim(), expectedKey))) return { ok: false as const };
 
     const session = await useSession<AdminSession>(getAdminSessionConfig());
     await session.update({ authorized: true });
