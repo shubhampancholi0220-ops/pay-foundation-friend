@@ -40,7 +40,7 @@ export const getAccessStatus = createServerFn({ method: "GET" }).handler(async (
 });
 
 export const redeemAccessKey = createServerFn({ method: "POST" })
-  .inputValidator(
+  .validator(
     z.object({ key: z.string().trim().min(1).max(256) }),
   )
   .handler(async ({ data }) => {

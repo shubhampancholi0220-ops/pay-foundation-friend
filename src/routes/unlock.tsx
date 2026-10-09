@@ -35,7 +35,14 @@ function UnlockPage() {
     setIsSubmitting(true);
 
     try {
-      const result = await redeem({ data: { key } });
+      const formData = new FormData(event.currentTarget);
+      const submittedKey = formData.get("key");
+      if (typeof submittedKey !== "string" || !submittedKey.trim()) {
+        setError("Enter your access key to continue.");
+        return;
+      }
+
+      const result = await redeem({ data: { key: submittedKey } });
       if (!result.ok) {
         setError("This key is invalid or has already been used on another device.");
         return;

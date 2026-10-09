@@ -137,7 +137,7 @@ function ZimAdminPage() {
                 <p className="mb-3 text-sm font-medium text-access-accent">KEY MANAGEMENT</p>
                 <h1 className="text-3xl font-semibold leading-tight">Generate access key</h1>
                 <p className="mt-3 text-sm leading-6 text-access-muted">
-                  Each key works for one account and can only be redeemed once.
+                  Each key is bound to the first browser that redeems it.
                 </p>
               </div>
               <Button
