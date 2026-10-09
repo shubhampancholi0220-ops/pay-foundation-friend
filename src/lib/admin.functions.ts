@@ -30,7 +30,7 @@ export const getAdminStatus = createServerFn({ method: "GET" }).handler(async ()
 });
 
 export const unlockAdmin = createServerFn({ method: "POST" })
-  .inputValidator(z.object({ key: z.string().trim().min(1).max(256) }))
+  .validator(z.object({ key: z.string().trim().min(1).max(256) }))
   .handler(async ({ data }) => {
     setResponseHeader("cache-control", "private, no-store");
 
