@@ -1,8 +1,15 @@
 import { useServerFn } from "@tanstack/react-start";
 import { createFileRoute } from "@tanstack/react-router";
-import { KeyRound, ShieldCheck } from "lucide-react";
+import { Check, KeyRound, ShieldCheck } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { redeemAccessKey } from "@/lib/access.functions";
 
@@ -28,6 +35,11 @@ function UnlockPage() {
   const [key, setKey] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loginSucceeded, setLoginSucceeded] = useState(false);
+
+  function continueToSite() {
+    window.location.replace("/");
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -47,7 +59,7 @@ function UnlockPage() {
         setError("This key is invalid or has already been used on another device.");
         return;
       }
-      window.location.replace("/");
+      setLoginSucceeded(true);
     } catch {
       setError("We couldn't verify your key right now. Please try again.");
     } finally {
@@ -57,6 +69,32 @@ function UnlockPage() {
 
   return (
     <main className="flex min-h-dvh items-center justify-center bg-access-screen px-5 py-10 text-access-text">
+      <Dialog
+        open={loginSucceeded}
+        onOpenChange={(open) => {
+          setLoginSucceeded(open);
+          if (!open) continueToSite();
+        }}
+      >
+        <DialogContent className="max-w-[340px] rounded-xl border-access-border bg-access-surface p-6 text-access-text">
+          <DialogHeader className="items-center text-center">
+            <div className="mb-2 flex size-14 items-center justify-center rounded-full bg-payment-success/20 text-payment-success">
+              <Check aria-hidden="true" className="size-7" strokeWidth={3} />
+            </div>
+            <DialogTitle className="text-xl">Login successful</DialogTitle>
+            <DialogDescription className="text-access-muted">
+              Your access key is verified. You can now continue to Simple Pay.
+            </DialogDescription>
+          </DialogHeader>
+          <Button
+            type="button"
+            onClick={continueToSite}
+            className="mt-2 h-11 w-full rounded-lg bg-access-accent text-access-text hover:bg-access-accent/90"
+          >
+            Continue to Simple Pay
+          </Button>
+        </DialogContent>
+      </Dialog>
       <section className="w-full max-w-[380px]">
         <div className="mb-10 flex items-center gap-3">
           <div className="flex size-11 items-center justify-center rounded-xl bg-access-accent/15 text-access-accent">
