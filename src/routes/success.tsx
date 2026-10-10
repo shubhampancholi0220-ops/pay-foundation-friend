@@ -61,6 +61,12 @@ function formatPaymentDate(d: Date) {
   return `${day} ${month} ${year} at ${String(hours).padStart(2, "0")}:${minutes} ${ampm}`;
 }
 
+// Survives route remounts during the session so the intro animation only
+// plays on the first arrival at /success (not when coming back from
+// /success-details).
+let introPlayed = false;
+type Phase = "loading" | "success" | "revealed";
+
 function SuccessPage() {
   const navigate = useNavigate();
   const { name, upi, amount, message } = Route.useSearch();
@@ -70,11 +76,13 @@ function SuccessPage() {
 
   // Intro sequence: dark "Connecting Securely" loader -> green success
   // overlay -> overlay slides up to reveal the details page.
-  const [phase, setPhase] = useState<"loading" | "success" | "revealed">(
-    "loading",
-  );
+  // Plays once per payment; returning from /success-details shows the
+  // details page directly.
+  const [phase, setPhase] = useState<Phase>(introPlayed ? "revealed" : "loading");
 
   useEffect(() => {
+    if (introPlayed) return;
+    introPlayed = true;
     const t1 = setTimeout(() => setPhase("success"), 1600);
     const t2 = setTimeout(() => setPhase("revealed"), 3400);
     return () => {
