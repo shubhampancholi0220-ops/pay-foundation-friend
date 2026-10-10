@@ -61,16 +61,6 @@ function formatPaymentDate(d: Date) {
   return `${day} ${month} ${year} at ${String(hours).padStart(2, "0")}:${minutes} ${ampm}`;
 }
 
-// Survives route remounts during the session so the intro animation only
-// plays on the first arrival at /success (not when coming back from
-// /success-details).
-let introPlayed = false;
-// Called whenever a brand-new payment is confirmed (PIN screen → success),
-// so the intro animation replays for each transaction while still being
-// skipped when returning from /success-details.
-export function resetSuccessIntro() {
-  introPlayed = false;
-}
 type Phase = "loading" | "success" | "revealed";
 
 function SuccessPage() {
