@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
+import { resetSuccessIntro } from "@/routes/success";
 
 const pinSearchSchema = z.object({
   name: z.string().max(100).catch(""),
@@ -58,6 +59,8 @@ function PinPage() {
 
   const handlePay = () => {
     if (pin.length !== PIN_LENGTH) return;
+    // A new payment is starting: the success intro should play again.
+    resetSuccessIntro();
     navigate({ to: "/success", search: { name, upi, amount, message } });
   };
 
