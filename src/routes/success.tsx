@@ -65,6 +65,12 @@ function formatPaymentDate(d: Date) {
 // plays on the first arrival at /success (not when coming back from
 // /success-details).
 let introPlayed = false;
+// Called whenever a brand-new payment is confirmed (PIN screen → success),
+// so the intro animation replays for each transaction while still being
+// skipped when returning from /success-details.
+export function resetSuccessIntro() {
+  introPlayed = false;
+}
 type Phase = "loading" | "success" | "revealed";
 
 function SuccessPage() {
