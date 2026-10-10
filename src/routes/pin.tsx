@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
-import { resetSuccessIntro } from "@/routes/success";
+import { resetSuccessIntro } from "@/lib/successIntro";
 
 const pinSearchSchema = z.object({
   name: z.string().max(100).catch(""),
